@@ -7,8 +7,9 @@ const dotenv = require('dotenv').config();
 const cookieParser = require('cookie-parser');
 const PORT = process.env.PORT || 8080;
 const db = require("./models");
-//const db1=require("./models/indexuser");
-const userRoutes = require ("./routers/departamentosuser.router.js");
+const userRoutes = require ("./routers/departmentsuser.router.js");
+const expressSwagger=require("express-swagger-generator")(app);
+const URL_BASE="/Pedrops/v1"
 
 var corsOptions = 
 {
@@ -30,15 +31,46 @@ app.get("/", (req, res) =>
   res.json({ message: "Bienvenido a la aplicación Pedro Pérez Sánchez." });
 });
 
-require("./routers/departamentos.router")(app);
-app.use("/api/users",userRoutes)
 
+require("./routers/departments.router")(app);
+
+app.use("/api/users",userRoutes)
 
 app.listen(PORT, () => {console.log(`Server is running on port ${PORT}.`);});
 
+let options = 
+{
+  swaggerDefinition: {
+      info: {
+          description: 'This application has been developed by Pedro Pedro Pérez',
+          title: 'SwaggerApiPedro',
+          version: '1.0.0',
+      },
+      host: `localhost:${PORT}`,
+      basePath: `${URL_BASE}`,
+      produces: [
+          "application/json"
+          //"application/xml"
+      ],
+      schemes: ['http', 'https'],
+      securityDefinitions: {
+          JWT: {
+              type: 'apiKey',
+              in: 'header',
+              name: 'Authorization',
+              description: "",
+          }
+      }
+  },
+  basedir: __dirname, //app absolute path
+  files: ["./routers/*.js","./models/*.js"] //Path to the API handle folder
+};
+expressSwagger(options);
+
+
+
 
 //para comprobar si funciona 
-
 //sql Shell(psql)
 //primero conectamos la base de datos con el comando \c <<nombrebasesdedatos>> nombrebasededatos=departamentos
 //para ver la descripcion de la tabla utilizamos el comando \d departamentos

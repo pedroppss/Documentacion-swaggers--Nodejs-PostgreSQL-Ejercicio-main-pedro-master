@@ -21,7 +21,7 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
-db.departamentoss=require("./departamentos.model.js")(sequelize, Sequelize);
-db.users = require('./departamentosuser.model.js') (sequelize, DataTypes);
+db.departamentoss=require("./departments.model.js")(sequelize, Sequelize);
+db.users = require('./departmentsuser.model.js') (sequelize, DataTypes);
 
 module.exports = db;
