@@ -34,9 +34,9 @@ app.get("/", (req, res) =>
 
 require("./routers/departments.router")(app);
 
-app.use("/api/users",userRoutes)
+//app.use("/api/users",userRoutes);
 
-app.listen(PORT, () => {console.log(`Server is running on port ${PORT}.`);});
+
 
 let options = 
 {
@@ -67,7 +67,7 @@ let options =
 };
 expressSwagger(options);
 
-
+app.listen(PORT, () => {console.log(`Server is running on port ${PORT}.`);});
 
 
 //para comprobar si funciona 
