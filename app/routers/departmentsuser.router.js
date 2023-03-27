@@ -1,7 +1,7 @@
 
 /**
  * 
- * @route POST /signup
+ * @route POST /users/signup
  * @group users -Operations about user
  * @param {user.model} user.body.required -userName(nombre de usuario), email or password
  * @returns {Error} default - Unexpected error
@@ -10,7 +10,7 @@
  * @consumes application/json
  */
 /**
- * @route POST /login
+ * @route POST /users/login
  * @group users -Operations about user
  * @param {user.model} user.body.required - email or password
  * @returns {Error} default - Unexpected error
@@ -27,8 +27,6 @@ const userAuth = require('../Middleware/userAuth')
 const router = express.Router()
 
 /* Calling the `userAuth.saveUser` middleware function and then the `signup` controller function. */
-router.post("/signup",userAuth.saveUser,signup);
+router.post("/users/signup",userAuth.saveUser,signup);
 /* Calling the `login` controller function. */
-router.post('/login', login )
-
-module.exports = router
+router.post('/users/login', login);
