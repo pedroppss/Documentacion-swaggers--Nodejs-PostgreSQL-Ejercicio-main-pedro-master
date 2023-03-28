@@ -9,8 +9,9 @@ const PORT = process.env.PORT || 8080;
 const db = require("./models");
 const userRoutes = require ("./routers/departmentsuser.router.js");
 const expressSwagger=require("express-swagger-generator")(app);
-const URL_BASE="/Pedrops/v1"
-
+const URL_BASE="/Pedrops/v1/"
+const homeroute=require("./routers/Home.router.js");
+const loginroute=require("./routers/login.router.js");
 var corsOptions = 
 {
   origin: "http://localhost:8081"
@@ -35,8 +36,6 @@ app.get("/", (req, res) =>
 require("./routers/departments.router")(app);
 
 //app.use("/api/users",userRoutes);
-
-
 
 let options = 
 {
@@ -66,6 +65,10 @@ let options =
   files: ["./routers/*.js","./models/*.js"] //Path to the API handle folder
 };
 expressSwagger(options);
+
+app.use(URL_BASE,homeroute);
+app.use(URL_BASE,loginroute);
+
 
 app.listen(PORT, () => {console.log(`Server is running on port ${PORT}.`);});
 
