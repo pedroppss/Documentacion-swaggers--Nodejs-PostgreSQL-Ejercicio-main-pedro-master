@@ -7,9 +7,10 @@ const dotenv = require('dotenv').config();
 const cookieParser = require('cookie-parser');
 const PORT = process.env.PORT || 8080;
 const db = require("./models");
-const userRoutes = require ("./routers/departmentsuser.router.js");
 const expressSwagger=require("express-swagger-generator")(app);
-const URL_BASE="/Pedrops/v1"
+const URL_BASE="/Pedrops/v1/"
+const departmentRoute=require("./routers/departmentRouter.js");
+const userRoute=require("./routers/userRouter.js");
 
 var corsOptions = 
 {
@@ -32,8 +33,7 @@ app.get("/", (req, res) =>
 });
 
 
-require("./routers/departments.router")(app);
-
+//require("./router/departmentRouter")//(app);
 //app.use("/api/users",userRoutes);
 
 
@@ -67,13 +67,20 @@ let options =
 };
 expressSwagger(options);
 
+app.use(URL_BASE,departmentRoute);
+app.use(URL_BASE,userRoute);
+
 app.listen(PORT, () => {console.log(`Server is running on port ${PORT}.`);});
 
 
-//para comprobar si funciona 
-//sql Shell(psql)
-//primero conectamos la base de datos con el comando \c <<nombrebasesdedatos>> nombrebasededatos=departamentos
-//para ver la descripcion de la tabla utilizamos el comando \d departamentos
 
-//para comprobar si funciona lo de usuario
-//select * from users; pgadmin4
+//to check if it works
+//sql Shell(psql)
+
+//First we connect the database with the command \c <<nombrebasesdedatos>> nombrebasededatos=departments
+//To see the description of the table we use the command \d departments
+//database => departments
+
+//to check if the user and department work
+//select * from users; pgadmin4 
+//select * from departments; pgadmin4 or sql Shell

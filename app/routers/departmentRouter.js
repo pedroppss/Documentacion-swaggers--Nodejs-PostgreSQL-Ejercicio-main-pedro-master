@@ -64,40 +64,24 @@
  */
 
 /* This is a route that will call the deleteAll function in the departamentos.controller.js file. */
-module.exports = app => 
-{
-    const departamentoss = require("../Controllers/departments.controller.js");
-  
-    var router = require("express").Router();
-  
-    
+
+    const department = require("../controllers/departmentController.js");
+    var router = require("express").Router();    
     /* Creating a new department. */
-    router.post("/departments", departamentoss.create);
-  
+    router.post("/departments", department.create);
     /* Creating a route that will call the findAll function in the departamentos.controller.js file. */
-    router.get("/departments", departamentoss.findAll);
-  
-    
+    router.get("/departments", department.findAll);    
    /* This is a route that will call the findAllPublished function in the departamentos.controller.js
    file. */
-    router.get("/departments/published", departamentoss.findAllPublished);
-  
-    
+    router.get("/departments/published", department.findAllPublished);
     /* This is a route that will call the findOne function in the departamentos.controller.js file. */
-    router.get("/departments/:id", departamentoss.findOne);
-  
-    
+    router.get("/departments/:id", department.findOne);
     /* This is a route that will call the update function in the departamentos.controller.js file. */
-    router.put("/departments/:id", departamentoss.update);
-  
-    
+    router.put("/departments/:id", department.update);
     /* This is a route that will call the delete function in the departamentos.controller.js file. */
-    router.delete("/departments/:id", departamentoss.delete);
-  
-    
+    router.delete("/departments/:id", department.delete);
     /* This is a route that will call the deleteAll function in the departamentos.controller.js file. */
-    router.delete("/departments", departamentoss.deleteAll);
-  
+    router.delete("/departments", department.deleteAll);
     /* This is a route that will call the deleteAll function in the departamentos.controller.js file. */
-    //app.use('/api/departamentoss', router);
-  };
+    //app.use('/api/departments', router);
+    module.exports=router;

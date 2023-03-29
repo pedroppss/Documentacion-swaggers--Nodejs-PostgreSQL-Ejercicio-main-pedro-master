@@ -12,7 +12,7 @@
 /* Creating a table in the database. */
 module.exports = (sequelize, Sequelize) => {
     /* Creating a table in the database. */
-    const department = sequelize.define("departamentos", {
+    const department = sequelize.define("department", {
       title: {
         type: Sequelize.STRING
       },

@@ -1,7 +1,7 @@
 
 /* Importing the database and the models. */
 const db = require("../models/index.js");
-const Department = db.departamentoss;
+const Department = db.departments;
 const Op = db.Sequelize.Op;
  
 /* This is a function that creates a new department. */
