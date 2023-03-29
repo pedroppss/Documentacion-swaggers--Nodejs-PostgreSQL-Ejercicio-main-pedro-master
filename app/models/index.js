@@ -1,4 +1,4 @@
-const dbConfig = require("../Configuracion/db.config.js");
+const dbConfig = require("../setting/dbConfig.js");
 const Sequelize = require("sequelize");
 const DataTypes=require("sequelize");
 const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
@@ -21,7 +21,7 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
-db.departamentoss=require("./departments.model.js")(sequelize, Sequelize);
-db.users = require('./departmentsuser.model.js') (sequelize, DataTypes);
+db.departments=require("./departmentModel")(sequelize, Sequelize);
+db.users = require('./userModel') (sequelize, DataTypes);
 
 module.exports = db;
