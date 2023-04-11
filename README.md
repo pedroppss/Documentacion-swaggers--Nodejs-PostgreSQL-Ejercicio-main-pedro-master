@@ -47,9 +47,9 @@ select * from users;
 ```
 # Sql Shell(psql):
 
-First we connect the database with the command \c <<databasename>> databasename=departments
+First we connect the database with the command  `\c databasename` databasename=departments
  
-To see the description of the table we use the command \d departments
+To see the description of the table we use the command  `\d departments`
  
 database => departments
 ```
