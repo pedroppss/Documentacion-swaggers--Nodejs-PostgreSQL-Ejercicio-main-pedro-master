@@ -65,7 +65,7 @@
 
 /* This is a route that will call the deleteAll function in the departamentos.controller.js file. */
 
-    const department = require("../controllers/departmentController.js");
+    const department = require("../Controllers/departmentController.js");
     var router = require("express").Router();    
     /* Creating a new department. */
     router.post("/departments", department.create);
