@@ -1,4 +1,13 @@
 # Documentacion-swaggers--Nodejs-PostgreSQL-Ejercicio-main-pedro-master
+##  Steps before starting the swaggers documentation
+
+1. Before starting the swagger documentation, the first thing we have to do is go to the master branch which is main. Using the git command `git branch [nombre-rama-main]`.
+2. We use the git command `git pull` to make sure the master(main) branch is up to date.
+3. When the branch is up to date, we will create a new branch using the git command. `git branch [nombre-rama-nueva]`.
+4. Since we already have the new branch, we position this new branch thanks to the git command `git checkout [nombre-rama-nueva]`.
+5. now if we start the swaggers documentation
+
+
 ## How to start the application
 
 1. We position in the main folder, in the terminal we execute the command:
