@@ -37,9 +37,21 @@ This application consists of HTTP(GET,POST,DELETE,PUT) methods, located in the s
    http://localhost:4000/Pedrops/v1/departments/:id
    http://localhost:4000/Pedrops/v1/departments
 ```
-#PgAdmin4:
+# PgAdmin4:
 
 To check if you have inserted a department or a user, or even if you have updated or deleted we write:
+
+```
+select * from departments;
+select * from users;
+```
+# Sql Shell(psql):
+
+First we connect the database with the command \c <<databasename>> databasename=departments
+ 
+To see the description of the table we use the command \d departments
+ 
+database => departments
 ```
 select * from departments;
 select * from users;
