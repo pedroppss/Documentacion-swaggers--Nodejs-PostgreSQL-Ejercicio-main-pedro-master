@@ -31,6 +31,7 @@ http://localhost:4000/api-docs#
 
 This application consists of HTTP(GET,POST,DELETE,PUT) methods, located in the same route, but different destination:
 
+
 * API route=>http://localhost:4000/Pedrops/v1/
   - GET:
   
@@ -57,6 +58,7 @@ This application consists of HTTP(GET,POST,DELETE,PUT) methods, located in the s
     - http://localhost:4000/Pedrops/v1/departments/:id
    
     - http://localhost:4000/Pedrops/v1/departments
+
 
 # PgAdmin4:
 
