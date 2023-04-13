@@ -11,6 +11,9 @@ const expressSwagger=require("express-swagger-generator")(app);
 const URL_BASE="/Pedrops/v1/"
 const departmentRoute=require("./routers/departmentRouter.js");
 const userRoute=require("./routers/userRouter.js");
+const uploadroute=require("./routers/uploadFile.js");
+//const multer = require("multer");
+//const upload = multer({dest: "uploads/"});
 
 var corsOptions = 
 {
@@ -31,6 +34,7 @@ app.get("/", (req, res) =>
 {
   res.json({ message: "Bienvenido a la aplicación Pedro Pérez Sánchez." });
 });
+
 
 
 //require("./router/departmentRouter")//(app);
@@ -69,18 +73,10 @@ expressSwagger(options);
 
 app.use(URL_BASE,departmentRoute);
 app.use(URL_BASE,userRoute);
+app.use(URL_BASE,uploadroute);
+app.use(express.json())
 
 app.listen(PORT, () => {console.log(`Server is running on port ${PORT}.`);});
 
 
 
-//to check if it works
-//sql Shell(psql)
-
-//First we connect the database with the command \c <<nombrebasesdedatos>> nombrebasededatos=departments
-//To see the description of the table we use the command \d departments
-//database => departments
-
-//to check if the user and department work
-//select * from users; pgadmin4 
-//select * from departments; pgadmin4 or sql Shell
