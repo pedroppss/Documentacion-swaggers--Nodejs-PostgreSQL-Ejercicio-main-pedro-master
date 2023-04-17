@@ -77,6 +77,7 @@ app.use(URL_BASE,userRoute);
 app.use(URL_BASE,uploadroute);
 app.use(URL_BASE,memorystorage);
 app.use(express.json())
+app.use(express.urlencoded({extended:true}));
 
 app.listen(PORT, () => {console.log(`Server is running on port ${PORT}.`);});
 
