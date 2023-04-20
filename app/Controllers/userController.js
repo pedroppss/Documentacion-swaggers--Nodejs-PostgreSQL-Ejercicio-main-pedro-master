@@ -1,6 +1,7 @@
 const db=require("../models/index");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
+const { config } = require("dotenv");
 const User = db.users;
 
 //registering a user
@@ -20,7 +21,7 @@ const signup = async (req, res) => {
       //generate token with user id and secret key in env file
       // set cookie with generated token
       if (user) {
-        let token = jwt.sign({ id: user.id }, process.env.secretKey, {
+        let token = jwt.sign({ id: user.id },process.env.secretKey, {
           expiresIn: 1 * 24 * 60 * 60 * 1000,
         });
    

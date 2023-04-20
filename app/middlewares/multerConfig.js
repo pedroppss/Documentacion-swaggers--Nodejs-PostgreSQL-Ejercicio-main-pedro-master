@@ -8,7 +8,6 @@ const storage=multer.diskStorage({
     
     filename:function(req,file,cb)
     {
-        //const extension=file.originalname.slice(file.originalname.lastIndexOf("."));
         cb(null,file.fieldname+"-"+Date.now())
     }
 })
