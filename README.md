@@ -79,18 +79,3 @@ database => departments
 select * from departments;
 select * from users;
 ```
-
-# upload data from excel file to database
-
-In the assets folder, I have left two xlsx files: one for the departments and one for the users. So you can get into this endpoint and it loads you to the database. `forder:assets`
-
-To know if the data of the departments or users has been inserted in the database: departments
-
-for departments :
-```
-select * from departments;
-```
-for users:
-```
-select * from users;
-```
