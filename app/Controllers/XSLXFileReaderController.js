@@ -10,18 +10,20 @@ exports.readXLSFile = (req, res) => {
     const dataexcel = XLSX.utils.sheet_to_json(book.Sheets[sheet])
     const dataexceluser=XLSX.utils.sheet_to_json(book.Sheets[sheet])
     //console.log(dataexcel);
-    insertUser(dataexceluser);
-    insertDepartment(dataexcel);
+    insertUser(dataexceluser,res);
+    insertDepartment(dataexcel,res);
     
    
 }
-const insertDepartment = async (dataexcel) => {
+const insertDepartment = async (dataexcel,res) => {
     try {
-        for (let i in dataexcel) {
+        for (let i in dataexcel) 
+        {
             console.log(dataexcel[i])
-            const response = await axios.post(URL, dataexcel[i])
-            
+            const response = await axios.post(URL, dataexcel[i]);
+           
         }
+        res.status(200).json({success:true,message:"data inserted correctly"});
 
     } catch (err) {
         console.log(err)
@@ -29,14 +31,14 @@ const insertDepartment = async (dataexcel) => {
 
 
 }
-const insertUser = async (dataexceluser) => {
+const insertUser = async (dataexceluser,res) => {
     try {
         for (let i in dataexceluser) {
             console.log(dataexceluser[i])
-            const response = await axios.post(URLuser, dataexceluser[i])
+            const response = await axios.post(URLuser, dataexceluser[i]);
             
         }
-
+        res.status(200).json({success: true, message:"data inserted correctly"});
     } catch (err) {
         console.log(err)
     }

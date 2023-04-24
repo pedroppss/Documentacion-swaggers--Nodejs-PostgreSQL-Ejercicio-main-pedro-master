@@ -2,20 +2,22 @@
  * This is to create departments
  * @route POST /departments
  * @group departments
+ * @produces application/json
  * @param {department.model}department.body.required department body
  * @returns {JSON} 200 -it was a success
  * @returns {Error} default -Unexpected error
- * @produces application/json
+ * 
  * 
  */
 /**
  * This is to display all departments
  * @route GET /departments
  * @group departments
+ * @produces application/json
  * @returns {Error} default -Unexpected error
  * @returns {Array.<department>}200 - an array of all departments
- * @produces application/json
- * @consumes application/json
+ *
+
  */
 /**
  * This is to display only the departments whose published
@@ -39,9 +41,9 @@
  * This is to update the department whose id
  * @route PUT /departments/{id}
  * @group departments
+ * @produces application/json
  * @param {department.model}department.body.required department body
  * @param {string} id.path.required department integer
- * @produces application/json
  * @returns {Error} default -Unexpected error
  * @returns {JSON} 200 -department has been successfully updated
  */
