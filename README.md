@@ -85,6 +85,9 @@ In the assets folder, I have left two xlsx files: one for the departments and on
 
 To know if the data of the departments or users has been inserted in the database: departments
 
+The application that uses the database is called
+pgAdmin4
+
 for departments :
 ```
 select * from departments;
@@ -93,3 +96,11 @@ for users:
 ```
 select * from users;
 ```
+and you can also check if it works with swagger UI by putting the excel files that I have in the assets folder. And if they are valid, they are inserted into the database, but if they are not valid, they are not inserted, including without a file or even if they are not of the excel type. You can also check with the Postman app.
+
+In the postman, to be able to check with the files,we write the same path, but with different destinations using the POST method.
+
+* API route=>http://localhost:4000/Pedrops/v1/
+  - POST:
+    - http://localhost:4000/Pedrops/v1/memory
+    - http://localhost:4000/Pedrops/v1/file
