@@ -27,8 +27,9 @@ const userAuth = require('../middlewares/userAuth')
 const router = express.Router()
 
 /* Calling the `userAuth.saveUser` middleware function and then the `signup` controller function. */
-router.post("/users/signup",userAuth.saveUser,signup);
+router.post("/users/signup", userAuth.saveUser, signup);
+router.get("/users/signup", userAuth.saveUser, signup);
 /* Calling the `login` controller function. */
 router.post('/users/login', login);
 
-module.exports=router;
+module.exports = router;
