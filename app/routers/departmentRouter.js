@@ -2,7 +2,7 @@
  * This is to create departments
  * @route POST /departments
  * @group departments
- * @produces application/json
+ * @consume application/json
  * @param {department.model}department.body.required department body
  * @returns {JSON} 200 -it was a success
  * @returns {Error} default -Unexpected error
@@ -67,23 +67,23 @@
 
 /* This is a route that will call the deleteAll function in the departamentos.controller.js file. */
 
-    const department = require("../controllers/departmentController.js");
-    var router = require("express").Router();    
-    /* Creating a new department. */
-    router.post("/departments", department.create);
-    /* Creating a route that will call the findAll function in the departamentos.controller.js file. */
-    router.get("/departments", department.findAll);    
-   /* This is a route that will call the findAllPublished function in the departamentos.controller.js
-   file. */
-    router.get("/departments/published", department.findAllPublished);
-    /* This is a route that will call the findOne function in the departamentos.controller.js file. */
-    router.get("/departments/:id", department.findOne);
-    /* This is a route that will call the update function in the departamentos.controller.js file. */
-    router.put("/departments/:id", department.update);
-    /* This is a route that will call the delete function in the departamentos.controller.js file. */
-    router.delete("/departments/:id", department.delete);
-    /* This is a route that will call the deleteAll function in the departamentos.controller.js file. */
-    router.delete("/departments", department.deleteAll);
-    /* This is a route that will call the deleteAll function in the departamentos.controller.js file. */
-    //app.use('/api/departments', router);
-    module.exports=router;
+const department = require("../controllers/departmentController.js");
+var router = require("express").Router();
+/* Creating a new department. */
+router.post("/departments", department.create);
+/* Creating a route that will call the findAll function in the departamentos.controller.js file. */
+router.get("/departments", department.findAll);
+/* This is a route that will call the findAllPublished function in the departamentos.controller.js
+file. */
+router.get("/departments/published", department.findAllPublished);
+/* This is a route that will call the findOne function in the departamentos.controller.js file. */
+router.get("/departments/:id", department.findOne);
+/* This is a route that will call the update function in the departamentos.controller.js file. */
+router.put("/departments/:id", department.update);
+/* This is a route that will call the delete function in the departamentos.controller.js file. */
+router.delete("/departments/:id", department.delete);
+/* This is a route that will call the deleteAll function in the departamentos.controller.js file. */
+router.delete("/departments", department.deleteAll);
+/* This is a route that will call the deleteAll function in the departamentos.controller.js file. */
+//app.use('/api/departments', router);
+module.exports = router;

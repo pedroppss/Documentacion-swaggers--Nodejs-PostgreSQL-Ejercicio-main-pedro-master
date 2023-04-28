@@ -1,6 +1,6 @@
 const dbConfig = require("../setting/dbConfig.js");
 const Sequelize = require("sequelize");
-const DataTypes=require("sequelize");
+const DataTypes = require("sequelize");
 const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
   host: dbConfig.HOST,
   dialect: dbConfig.dialect,
@@ -14,14 +14,14 @@ const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
   }
 });
 
-sequelize.sync({force:false})
+sequelize.sync({ force: false })
 
 const db = {};
 
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
-db.departments=require("./departmentModel")(sequelize, Sequelize);
-db.users = require('./userModel') (sequelize, DataTypes);
+db.departments = require("./departmentModel")(sequelize, Sequelize);
+db.users = require('./userModel')(sequelize, DataTypes);
 
 module.exports = db;

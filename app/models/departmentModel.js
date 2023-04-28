@@ -11,23 +11,23 @@
 
 /* Creating a table in the database. */
 module.exports = (sequelize, Sequelize) => {
-    /* Creating a table in the database. */
-    const department = sequelize.define("department", {
-      title: {
-        type: Sequelize.STRING
-      },
-     /* Creating a column in the table. */
-      description: {
-        type: Sequelize.STRING
-      },
-      /* Creating a column in the table. */
-      location:{
-        type: Sequelize.STRING
-      },
-     /* Creating a column in the table. */
-      published: {
-        type: Sequelize.BOOLEAN
-      }
-    });
-    return department;
-  };
+  /* Creating a table in the database. */
+  const department = sequelize.define("department", {
+    title: {
+      type: Sequelize.STRING
+    },
+    /* Creating a column in the table. */
+    description: {
+      type: Sequelize.STRING
+    },
+    /* Creating a column in the table. */
+    location: {
+      type: Sequelize.STRING
+    },
+    /* Creating a column in the table. */
+    published: {
+      type: Sequelize.BOOLEAN
+    }
+  });
+  return department;
+};
