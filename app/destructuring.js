@@ -41,3 +41,28 @@ let { a, b, ...object1 } = { a: 23, b: 45, c: 67, g: 80 };
 console.log(a)
 console.log(b)
 console.log(object1)
+
+const people = [
+    {
+        name: 'Mike Smith',
+        family: {
+            mother: 'Jane Smith',
+            father: 'Harry Smith',
+            sister: 'Samantha Smith'
+        },
+        age: 35
+    },
+    {
+        name: 'Tom Jones',
+        family: {
+            mother: 'Norah Jones',
+            father: 'Richard Jones',
+            brother: 'Howard Jones'
+        },
+        age: 25
+    }
+];
+
+for (const { name: n, family: { father: f } } of people) {
+    console.log('Nombre: ' + n + ', Padre: ' + f);
+}
