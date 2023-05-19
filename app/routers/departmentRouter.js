@@ -3,21 +3,21 @@
  * @route POST /departments
  * @group departments
  * @consume application/json
+ * @param {string} Authorization.header.required - Bearer-Token
  * @param {department.model}department.body.required department body
  * @returns {JSON} 200 -it was a success
  * @returns {Error} default -Unexpected error
- * 
  * 
  */
 /**
  * This is to display all departments
  * @route GET /departments
  * @group departments
- * @produces application/json
+ * @consume application/json
+ * @param {string} Authorization.header.required - Bearer-Token
+ * @returns {JSON} 200 -it was a success
  * @returns {Error} default -Unexpected error
  * @returns {Array.<department>}200 - an array of all departments
- *
-
  */
 /**
  * This is to display only the departments whose published
@@ -52,6 +52,7 @@
  * @route DELETE /departments/{id}
  * @group departments
  * @produces application/json
+ * @param {string} Authorization.header.required - Bearer-Token
  * @param {string} id.path.required department integer
  * @returns {Error} default -error deleting department
  * @returns {JSON} 200 -department has been deleted successfully
@@ -68,11 +69,12 @@
 /* This is a route that will call the deleteAll function in the departamentos.controller.js file. */
 
 const department = require("../controllers/departmentController.js");
+const userAuth = require('../middlewares/userAuth');
 var router = require("express").Router();
 /* Creating a new department. */
-router.post("/departments", department.create);
+router.post("/departments",userAuth.authrole,department.create);
 /* Creating a route that will call the findAll function in the departamentos.controller.js file. */
-router.get("/departments", department.findAll);
+router.get("/departments",userAuth.authroledepartment,department.findAll);
 /* This is a route that will call the findAllPublished function in the departamentos.controller.js
 file. */
 router.get("/departments/published", department.findAllPublished);
@@ -81,7 +83,7 @@ router.get("/departments/:id", department.findOne);
 /* This is a route that will call the update function in the departamentos.controller.js file. */
 router.put("/departments/:id", department.update);
 /* This is a route that will call the delete function in the departamentos.controller.js file. */
-router.delete("/departments/:id", department.delete);
+router.delete("/departments/:id",userAuth.authrole, department.delete);
 /* This is a route that will call the deleteAll function in the departamentos.controller.js file. */
 router.delete("/departments", department.deleteAll);
 /* This is a route that will call the deleteAll function in the departamentos.controller.js file. */

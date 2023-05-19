@@ -1,8 +1,9 @@
 /**
  *@typedef user
- *@property {string} userName.required
+ *@property {string} name.required
  *@property {string} email.required
  *@property {string} password.required
+ *@property {string} role.required
  */
 
 
@@ -11,7 +12,7 @@
 module.exports = (sequelize, DataTypes) => {
     const User = sequelize.define("user", {
         /* This is creating a column in the table. */
-        userName: {
+        name: {
             type: DataTypes.STRING,
             allowNull: false
 
@@ -25,6 +26,10 @@ module.exports = (sequelize, DataTypes) => {
         },
         /* This is creating a column in the table. */
         password: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        role:{
             type: DataTypes.STRING,
             allowNull: false
         },

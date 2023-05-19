@@ -55,7 +55,7 @@ exports.findAll = (req, res) => {
 /* This is a function that finds a department by its id. */
 exports.findOne = (req, res) => {
   const id = req.params.id;
-
+  
   Department.findByPk(id)
     .then(data => {
       if (data) {
