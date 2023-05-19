@@ -40,6 +40,8 @@ This application consists of HTTP(GET,POST,DELETE,PUT) methods, located in the s
     - http://localhost:4000/Pedrops/v1/departments/published
    
     - http://localhost:4000/Pedrops/v1/departments/:id
+
+    - http://localhost:4000/Pedrops/v1/users/users
    
   - POST:
   
@@ -58,6 +60,9 @@ This application consists of HTTP(GET,POST,DELETE,PUT) methods, located in the s
     - http://localhost:4000/Pedrops/v1/departments/:id
    
     - http://localhost:4000/Pedrops/v1/departments
+
+    - http://localhost:4000/Pedrops/v1/users/users
+
 
 
 # PgAdmin4:
@@ -104,3 +109,112 @@ In the postman, to be able to check with the files,we write the same path, but w
   - POST:
     - http://localhost:4000/Pedrops/v1/memory
     - http://localhost:4000/Pedrops/v1/file
+
+# bcrypt_user_management
+
+In order to do token and jwt authentication, the first thing we have to do is install bcrypt using the command:
+```
+npm install bcrypt
+```
+## What is JWT (JSON Web Tokens)?
+JWT is a JSON object (JavaScript Object Notation), an open standard tool whose purpose is to establish a transmission of information between two or more fields. From these, information can be spread safely and effectively, which is also verified, since it is signed virtually. This set of information takes the web token reference, under the JSON open standard.
+## Structure
+Is a string composed of three parts separated by a period (.) and is serialized using base number 64. The three parts that make up this token are: header, payload, and signature.
+
+* Header:
+    - First component of the token and consists of two parts: the token type, which in this case is JWT, and the algorithm being used, which can be RSA or SHA256.
+* Payload:
+    -  the token claims are found. These are about an entity (user, object) and other information that goes with it.
+* Signature:
+    - Sign the encrypted header, the encrypted payload, the secret, and the algorithm that has been set in the header. This is done to verify that there are no changes to the responses or content of the components.
+
+## Token authentication
+In the folder called middlewares, in the file called userAuth.js, there you write the Token authentication code, if it is correct you can access that route and if it is not correct you cannot access it. Here you have an example.
+```
+function isAuth(req, res, next) {
+  if (!req.headers.authorization) {
+    return res.status(403).send({ message: "NOT AUTHORIZED" })
+  }
+  try {
+    const token = req.headers.authorization.split(" ")[1]
+    if(token){
+    const payload = jwt.verify(token, process.env.secretKey)
+    req.user = payload.sub
+    next();
+    }else if(!token){
+    res.status(401).json({message:"Token not found "})
+    }
+    
+  } catch (err) {
+    return res.status(401).json({ status: "fail", message: "Invalid Token,not Authorized" });
+  }
+}
+module.exports = isAuth; 
+```
+Also token authentication with role, if the user's role is administrator you can access this route but if the user's role is user you cannot access because you can only access if the user is administrator. there you have an example.
+```
+const authrole = function (req, res, next) {
+  try {
+    const token = req.headers.authorization.split(" ")[1]
+    if (!token) {
+      res.status(403).send({ message: "TOKEN NOT AUTHORIZED" });
+    } else {
+      jwt.verify(token, process.env.secretKey, function (err, payload) {
+        if (payload.role == "admin") {
+          next();
+        } else {
+          res.status(409).json({ message: "access failed, only administrators can access" });
+        }
+      })
+    }
+  } catch (err) {
+    return res.status(500).send({ success: false, message: "Invalid Token, not Authorized" });
+  }
+};
+```
+Also token authentication with role, if the user's role is administrator you can access this route and see all the users or departments but if the user's role is user you can only see the names of the users or the titles of the departments. there you have an example.
+```
+const authroleuser = function (req, res, next) {
+  try {
+    const token = req.headers.authorization.split(" ")[1]
+    if (!token) {
+      res.status(403).send({ message: "TOKEN NOT AUTHORIZED" });
+    } else {
+      jwt.verify(token, process.env.secretKey, function (err, payload) {
+        if (payload.role == "admin") {
+          getUsers().then(response => {
+            res.status(201).json(response)
+          })
+
+        } else if (payload.role == "user") {
+          getName().then(response => {
+            res.status(201).json(response)
+          })
+        }
+      })
+    }
+  } catch (err) {
+    return res.status(500).send({ success: false, message: "Invalid Token, not Authorized" });
+  }
+}
+```
+To be able to visualize all the users or the departments and also to be able to visualize only the names of the users or the titles of the departments, it is necessary to make a sql query of the database. Application:pgAdmin4. Oh you have an example.
+```
+const getUsers = async () => {
+  const response = await pool.query('SELECT * FROM  users');
+  return response.rows
+}
+const getName = async () => {
+  const response = await pool.query('SELECT name FROM users');
+  return response.rows
+}
+const getDepartament = async () => {
+  const response = await pool.query('SELECT * FROM departments');
+  return response.rows
+}
+const getDepartamenttitle = async () => {
+  const response = await pool.query('SELECT title FROM departments');
+  return response.rows
+}
+```
+To know if it works you can check with the Postman or Swagger UI application
