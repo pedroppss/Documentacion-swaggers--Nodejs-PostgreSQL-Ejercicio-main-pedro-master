@@ -48,6 +48,10 @@ This application consists of HTTP(GET,POST,DELETE,PUT) methods, located in the s
     - http://localhost:4000/Pedrops/v1/users/signup
    
     - http://localhost:4000/Pedrops/v1/users/login
+
+    - http://localhost:4000/Pedrops/v1/users/requestPasswordChanged
+
+    - http://localhost:4000/Pedrops/v1/users/restorePassword/:token
    
   - PUT:
   
@@ -104,3 +108,70 @@ In the postman, to be able to check with the files,we write the same path, but w
   - POST:
     - http://localhost:4000/Pedrops/v1/memory
     - http://localhost:4000/Pedrops/v1/file
+
+# Nodemailer
+
+before starting the nodemailer thing, as always update the main(master) branch, create a new branch and start the task to this new branch.
+
+## what is nodemailer?
+Nodemailer is a distribution package for Node. js that we can integrate into our project and allows us to send email to an SMTP server in text or HTML format.
+
+## Structure
+
+The first thing is to install the nodemailer package using this command:
+```
+npm install nodemailer
+```
+In the routers folder we will add two endpoints, one for the password change request using nodemailer and another for the password change.
+```
+router.post('/users/requestPasswordChanged', login_email);
+router.post('/users/restorePassword/:token',authtoken);
+
+```
+In the userController file inside the folder you create a function to be able to send an email with the url along with the token using the nodemailer code.
+
+the nodemailer code:
+```
+const transporter = nodemailer.createTransport({
+        service: 'Gmail',
+        auth: {
+          user: 'realmadrid777111222@gmail.com',
+          pass: 'gjzuyfpuneiecqwn'
+        }
+      });
+      const email = {
+        from: 'realmadrid777111222@gmail.com',
+        to: req.body.email,
+        subject: "restore password attempt",
+        text: "RESTORE PASSWORD",
+        html:
+          `<a href> "http://localhost:4000/Pedrops/v1/users/restorePassword/${token}" </a>`
+      }
+      transporter.sendMail(email, function (err, info) {
+        if (err) {
+          console.log(err)
+          res.status(409).json({ message: err })
+        } else {
+          res.status(201).json({ message: "Message sent!!!!" })
+        }
+      });
+```
+In the middlewares folder create a file for the endpoint that is to be able to change the password, for this we have to match the name of the token and email of the token with the name of body and the email of body. And if they match the password will be updated using a sql query and if they don't match it means that the token is invalid or the body.
+
+the code for the sql query:
+```
+const { Pool } = require("pg");
+
+const pool = new Pool({
+  host: "localhost",
+  user: "postgres",
+  password: "123456789",
+  database: "user",
+  dialect: "postgres",
+  port: 5432,
+});
+
+const response = pool.query(`UPDATE users SET password='${password}' WHERE name='${req.body.name}'`);
+const result = response.rows
+          
+```
